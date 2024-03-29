@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Test.Pathfind;
+using Luggage.Pathfind;
+using System.Linq;
+using System.IO;
 
 
 public class DestinationGenerator : MonoBehaviour
@@ -23,43 +25,28 @@ public class DestinationGenerator : MonoBehaviour
 
     void Start()
     {
-        //pathfind = GameObject.child
+        pathfind = transform.GetChild(0).GetComponent<AStarPathfinding>();
         grid = GameObject.FindWithTag("GridGenerator").GetComponent<GridGenerator>();
 
         startingTilePosition = new Vector3Int[numOfRoutes];
         endTilePosition = new Vector3Int[numOfRoutes];
-
-        while (objectToMove[0].GetComponent<TileMapPathfinding>() == null)
-        {
-            Debug.Log("GetComponent is null");
-        }
+        
         for (int i = 0; i < numOfRoutes; i++)
         {
             startingTilePosition[i] = new Vector3Int(Random.Range(0, 2), Random.Range(0, 8), 0);
             endTilePosition[i] = new Vector3Int(Random.Range(15, 16), Random.Range(0, 8), 0);
             tilemap.SetTile(startingTilePosition[i], startingTile);
             tilemap.SetTile(endTilePosition[i], endTile);
-            if(objectToMove[i].GetComponent<TileMapPathfinding>() == null)
-            {
-                Debug.Log(objectToMove[i] + " null");
-            }
-            objectToMove[i].GetComponent<TileMapPathfinding>().SetStartingAndEndTiles(startingTilePosition[i], endTilePosition[i]);
-
-        }
-
-        
-
-        //StartCoroutine(MoveObjects());
-        
+        }        
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(2))
         {
-            Debug.Log("Right Click - Find Path");
-
-            List<Node> path = pathfind.FindPath(grid.GetNodeAtGridPosition(startingTilePosition[0].x, startingTilePosition[0].y), grid.GetNodeAtGridPosition(endTilePosition[0].x, endTilePosition[0].y));
+            
+            StartCoroutine(DrawConnections());
+            //NEED TO FIGURE OUT A WAY TO MAKE SURE MOUSE DOESN'T GO THROUGH THE CELL OFFSET AND CREATE CONNECTIONS THAT ARE NOT NEXT TO EACH OTHER
         }
     }
 
@@ -70,14 +57,52 @@ public class DestinationGenerator : MonoBehaviour
         while (objectToMove[0] == null)
         {
             Debug.Log("Object [0] is null");
-        }
+        }       
+    }
 
-        while (objectToMove[0].GetComponent<TileMapPathfinding>() == null)
+    IEnumerator DrawConnections()
+    {
+        Debug.Log("Right Click - Find Path");
+
+        List<Node> path = pathfind.FindPath(grid.GetNodeAtGridPosition(startingTilePosition[0].x, startingTilePosition[0].y), grid.GetNodeAtGridPosition(endTilePosition[0].x, endTilePosition[0].y));
+
+        for (int i = 0; i < path.Count - 1; i++) //visualize your path in the sceneview
         {
-            Debug.Log("GetComponent is null");
+            Debug.DrawLine(new Vector3(path[i].gridPosition.x + 0.5f, path[i].gridPosition.y + 0.5f, -0.5f),
+                           new Vector3(path[i + 1].gridPosition.x + 0.5f, path[i + 1].gridPosition.y + 0.5f, -0.5f), Color.white, 10.0f);
+            Debug.Log("debug lines");
+        }
+        StartCoroutine(MoveObjects());
+        StartCoroutine(MoveForward(path));
+
+        yield return null;
+    }
+
+    IEnumerator MoveBackward(List<Node> path)
+    {
+        int pathCount = path.Count - 1;
+
+        while (pathCount >= 0)
+        {
+            objectToMove[0].transform.position = new Vector3(path[pathCount].gridPosition.x, path[pathCount].gridPosition.y,0.0f) ;
+            pathCount--;
+            yield return new WaitForSeconds(0.1f);
         }
 
-        objectToMove[0].GetComponent<TileMapPathfinding>().SetStartingAndEndTiles(startingTilePosition[0], endTilePosition[0]);
-        objectToMove[1].GetComponent<TileMapPathfinding>().SetStartingAndEndTiles(startingTilePosition[1], endTilePosition[1]); 
+        StartCoroutine(MoveForward(path));
+    }
+
+    IEnumerator MoveForward(List<Node> path)
+    {
+        int pathCount = 0;
+
+        while (pathCount < path.Count)
+        {
+            objectToMove[0].transform.position = new Vector3(path[pathCount].gridPosition.x, path[pathCount].gridPosition.y, 0.0f);
+            pathCount++;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        StartCoroutine(MoveBackward(path));
     }
 }

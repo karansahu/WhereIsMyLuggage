@@ -2562,37 +2562,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1358263047
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1358263048}
-  m_Layer: 0
-  m_Name: RoadTile
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1358263048
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1358263047}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.891687, y: 4.208556, z: 3.4809666}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1444326522
 GameObject:
   m_ObjectHideFlags: 0
@@ -2773,10 +2742,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea70cc554327f0547bbfb579d6348df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snapDir: 0
   pathDrawTolerance: 0.2
   snapSprite: {fileID: 529589803}
   text1: {fileID: 1560029380}
   text2: {fileID: 221625686}
+  initialMousePosWorldPoint: {x: 0, y: 0, z: 0}
+  lineRenderer: {fileID: 0}
+  gridSize: 0
 --- !u!4 &1444326526
 Transform:
   m_ObjectHideFlags: 0
@@ -3062,6 +3035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b689db02d4fac54789823d292738806, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDragging: 0
   tilemap: {fileID: 221669413}
   pathTile: {fileID: 11400000, guid: 50889139ad534ad4f8bc795a6a5328c4, type: 2}
   backgroundTile: {fileID: 11400000, guid: 7e4e0e3b96ee4b847aefa92ffab8f8a3, type: 2}
@@ -3069,6 +3043,8 @@ MonoBehaviour:
   mousePosInGridText: {fileID: 1560029380}
   gridCellText: {fileID: 221625686}
   cellSelectOffset: 0.15
+  gridGenerator: {fileID: 0}
+  starterNode: {fileID: 0}
 --- !u!4 &1761871937
 Transform:
   m_ObjectHideFlags: 0
@@ -3155,7 +3131,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2080729737}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd696e3af5b01d24188df826da0a856c, type: 3}
   m_Name: 
@@ -3258,4 +3234,3 @@ SceneRoots:
   - {fileID: 1444326526}
   - {fileID: 529589804}
   - {fileID: 1625701365}
-  - {fileID: 1358263048}

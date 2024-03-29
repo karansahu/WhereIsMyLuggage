@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3573062196291214870}
   - component: {fileID: 2885512056078469494}
   - component: {fileID: 5238845665117378894}
-  - component: {fileID: 1847779078463987908}
+  - component: {fileID: 2511001546809505021}
   m_Layer: 0
   m_Name: NodePrefab
   m_TagString: Untagged
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1847779078463987908
+--- !u!114 &2511001546809505021
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec1bec84bbb53e4082f1ca8089e1127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 0}
-  _moveable: 0
-  _movementCost: 0
+  spriteRenderer: {fileID: 0}
+  moveable: 1
+  movementCost: 10
   neighborNodes: []

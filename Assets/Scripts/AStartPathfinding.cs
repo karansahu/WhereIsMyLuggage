@@ -6,7 +6,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
-namespace Test.Pathfind
+namespace Luggage.Pathfind
 {
     public class AStarPathfinding : MonoBehaviour
     {

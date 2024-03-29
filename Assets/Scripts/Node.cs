@@ -55,7 +55,6 @@ public class Node : MonoBehaviour
     public void AddNeighbor(Node neighbor)
     {
         neighborNodes.Add(neighbor);
-        //Debug.Log(this + " adding " + neighbor);
         DrawConnections();
     }
 
@@ -82,5 +81,3 @@ public class Node : MonoBehaviour
         }
     }
 }
-
-//create a star pathfinding based on the connections created by the user.

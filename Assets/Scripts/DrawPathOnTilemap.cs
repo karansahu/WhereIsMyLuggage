@@ -39,7 +39,6 @@ public class DrawPathOnTilemap : MonoBehaviour
     void Update()
     {
         CheckMouseInput();        
-        //gridCellText.text = (Camera.main.ScreenToWorldPoint(Input.mousePosition)).ToString();
     }
 
     void CheckMouseInput()
@@ -66,10 +65,6 @@ public class DrawPathOnTilemap : MonoBehaviour
                 }        
                 isDragging = true;
             }
-            //else
-            //{
-            //    mousePosInGridText.text = "Mouse OUT cell offset: " + cellPosition.ToString();
-            //}
             gridCellText.text = tilemap.GetTile(cellPosition).ToString();
         }
         
@@ -108,22 +103,17 @@ public class DrawPathOnTilemap : MonoBehaviour
                         {
                             //startnode does not contain current node
                             starterNode.AddNeighbor(currentNode);
-                            Debug.Log("Adding " + currentNode + " to " + starterNode);
                         }
 
                         if (!currentNode.neighborNodes.Contains(starterNode))
                         {
                             currentNode.AddNeighbor(starterNode);
-                            Debug.Log("Adding " + starterNode + " to " + currentNode);
                         }
 
                         starterNode = currentNode;
                     }
                 }
             }       
-
-            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);        
-            //Debug.DrawRay(ray.origin, ray.direction * 10f, Color.blue, 2f);
         }
     }
 
